@@ -11,10 +11,8 @@ class VolController extends AbstractController
     /**
      * @Route("/vol", name="vol")
      */
-    public function index(): Response
+    public function vol(): Response
     {
-        return $this->render('vol/index.html.twig', [
-            'controller_name' => 'VolController',
-        ]);
+        return $this->render('vol/vol.html.twig',);
     }
 }
