@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% for hebergement in singleHebergement %} {{ hebergement.nom }} {% endfor %}{% endblock %}
+
+{% block body %}
+{% for hebergement in singleHebergement %}
+
+<div class="container">
+    <div class="navbar-expand-md mt-2">
+        <div class="collapse navbar-collapse" id="navcol-1">
+            <h4 class="me-auto">{{hebergement.nom}}</h4>
+            <h4>{{hebergement.prix}} €/nuit</h4>
+        </div>
+    </div>
+    <hr>
+</div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div>
+                <div class="card-content">
+                    <div class="card-body">
+                        <img width="500px" src="{{hebergement.illustration}}" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <h1 class="text-center">{{hebergement.nom}}</h1>
+
+            <br>
+            <p>{{hebergement.description}}</p>
+            <br>
+            <p>Ville: {{hebergement.adresse}}</p>
+            <br>
+            <p>Capacité d'accueil: {{hebergement.nombre_place}} personnes</p>
+            <br>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">Réserver</button>
+            </div>
+
+        </div>
+
+    </div>
+    {% endfor %}
+
+
+    {% endblock %}
