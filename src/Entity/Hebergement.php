@@ -64,6 +64,11 @@ class Hebergement
      */
     private $reservations;
 
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $prix;
+
     public function __construct()
     {
         $this->reservations = new ArrayCollection();
@@ -200,6 +205,18 @@ class Hebergement
                 $reservation->setHebergement(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPrix(): ?float
+    {
+        return $this->prix;
+    }
+
+    public function setPrix(?float $prix): self
+    {
+        $this->prix = $prix;
 
         return $this;
     }
