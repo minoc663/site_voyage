@@ -23,22 +23,17 @@
 		{% endblock %}
 	</head>
 	<body>
+
+		{% include "includes/header.html.twig" %}</body>
+	<div class="container">
+
 		{% block body %}
-			{% include "includes/header.html.twig" %}
 
 
-			<div class="container">
+			<h1>Bienvenue</h1>
 
-				<h1>Bienvenue</h1>
-
-
-			</div>
-
-
-			{% include "includes/footer.html.twig" %}
 
 		{% endblock %}
-
-	</body>
-
-</html>
+	</div>
+	{% include "includes/footer.html.twig" %}
+</html></body></html>
