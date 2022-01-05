@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 
@@ -43,7 +44,9 @@ class RegisterType extends AbstractType
                     'placeholder' => 'Merci de saisir votre genre'
                 ]
             ])
-            ->add('date_naissance', DateType::class,[
+            ->add('date_naissance', BirthdayType::class,[
+                'widget' => 'single_text',
+                'format' => 'yyyy-MM-dd',
                 'label' => 'Votre date de naissance',
                 'attr' => [
                     'placeholder' => 'Merci de saisir votre date de naissance'
