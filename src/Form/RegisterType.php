@@ -46,7 +46,7 @@ class RegisterType extends AbstractType
             ])
             ->add('date_naissance', BirthdayType::class,[
                 'widget' => 'single_text',
-                'format' => 'yyyy-MM-dd',
+                // 'format' => 'yyyy-MM-dd',
                 'label' => 'Votre date de naissance',
                 'attr' => [
                     'placeholder' => 'Merci de saisir votre date de naissance'
