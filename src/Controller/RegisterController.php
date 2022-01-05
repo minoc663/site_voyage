@@ -29,6 +29,9 @@ class RegisterController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()){
 
+            /* add alexia */
+            $user->setRoles(["ROLE_USER"]);
+            
             $user = $form->getData();
 
             $password = $encoder->hashPassword($user,$user->getPassword());
