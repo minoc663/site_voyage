@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Hebergement;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,9 +18,9 @@ class SingleHebergementController extends AbstractController
      */
     public function viewHebergement($id): Response
     {
-        $sigleHebergement = $this->entityManager->getRepository(Hebergement::class)->findby(['id' => $id]);
+        $singleHebergement = $this->entityManager->getRepository(Hebergement::class)->findby(['id' => $id]);
         return $this->render('single_hebergement/viewHebergement.html.twig', [
-            'controller_name' => 'SingleHebergementController',
+            'singleHebergement' => $singleHebergement,
         ]);
     }
 }
