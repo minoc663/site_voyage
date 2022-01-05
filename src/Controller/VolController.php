@@ -26,6 +26,7 @@ class VolController extends AbstractController
 
 
         $form = $this->createForm(VolType::class, $vol);
+        $form->handleRequest($request);
 
 
         if ($form->isSubmitted() && $form->isValid()) {

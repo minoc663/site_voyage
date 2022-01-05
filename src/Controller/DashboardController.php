@@ -5,8 +5,9 @@ namespace App\Controller;
 use App\Entity\Vol;
 use App\Entity\User;
 use App\Entity\Hebergement;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Form\HebergementType;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -29,69 +30,67 @@ class DashboardController extends AbstractController
         $vols = $this->entityManager->getRepository(Vol::class)->findall();
         return $this->render('dashboard/dashboard.html.twig', [
             'hebergements' => $hebergements,
-            'users'=> $users,
-            'voyageurs'=> $voyageurs,
-            'vols'=> $vols
+            'users' => $users,
+            'voyageurs' => $voyageurs,
+            'vols' => $vols
         ]);
     }
 
     /**
-     * @Route("/admin/edit/hebergement/{id}, name="edit_hebergement)
+     * @Route("/admin/edit/hebergement/{id}", name="edit_hebergement")
      */
 
-     public function editHebergement($id,Request $request): Response
+    public function editHebergement($id, Request $request): Response
     {
-     $hebergement = $this->entityManager->getRepository(Hebergement::class)->find($id);
+        $hebergement = $this->entityManager->getRepository(Hebergement::class)->find($id);
 
-     $form = $this->createForm(EditHebergementType::class,$hebergement);
-     $form->handleRequest($request);
+        $form = $this->createForm(HebergementType::class, $hebergement);
+        $form->handleRequest($request);
 
-     if($form -> isSubmitted() && $form->isSubmitted())
-     {
-        $this->entityMananger->persist($hebergement);
+        if ($form->isSubmitted() && $form->isSubmitted()) {
+            $this->entityManager->persist($hebergement);
+            $this->entityManager->flush();
+        }
+
+        return $this->render('dashboard/editHebergement.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+    /**
+     * @Route("/admin/edit/vol/{id}", name="edit_vol")
+     */
+
+    public function editVol($id, Request $request): Response
+    {
+        $vol = $this->entityManager->getRepository(Vol::class)->find($id);
+
+        $form = $this->createForm(EditVolType::class, $vol);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isSubmitted()) {
+            $this->entityManager->persist($vol);
+            $this->entityManager->flush();
+        }
+
+        return $this->render('dashboard/editvol.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+    /**
+     *@Route("/admin/delete/{id}", name= "vol_delete")
+     */
+
+    public function deleteVol(Vol $vol): Response
+
+    {
+        $this->entityManager->remove($vol);
         $this->entityManager->flush();
-     }
-
-     return $this->render('dashboard/editHebergement.html.twig',[
-         'form'=> $form->createView()
-     ]);
-}
-     /**
-     * @Route("/admin/edit/vol/{id}, name="edit_vol)
-     */
-
-    public function editVol($id,Request $request): Response
-{
-    $vol = $this->entityManager->getRepository(Vol::class)->find($id);
-
-    $form = $this->createForm(EditVolType::class,$vol);
-    $form->handleRequest($request);
-
-    if($form -> isSubmitted() && $form->isSubmitted())
-    {
-       $this->entityMananger->persist($vol);
-       $this->entityManager->flush();
+        $this->addFlash('sucess', 'Le vol a été supprimé avec succès');
+        return $this->redirectToRoute('dashboard');
     }
 
-    return $this->render('dashboard/editvol.html.twig',[
-        'form'=> $form->createView()
-    ]);
-}
     /**
-     *@Route("/admin/delete/{id}, name= "vol_delete")
-     */
-
-     public function deleteVol(Vol $vol): Response
-
-     {
-         $this->entityManager->remove($vol);
-         $this->entityManager->flush();
-         $this->addFlash('sucess', 'Le vol a été supprimé avec succès');
-         return $this->redirectToRoute('dashboard');
-     }
-
-      /**
-     *@Route("/admin/delete/user/{id}, name= "user_delete")
+     *@Route("/admin/delete/user/{id}", name= "user_delete")
      */
 
     public function deleteUser(User $user): Response
@@ -103,8 +102,8 @@ class DashboardController extends AbstractController
         return $this->redirectToRoute('dashboard');
     }
 
-     /**
-     *@Route("/admin/delete/hebergement/{id}, name= "hebergement_delete")
+    /**
+     *@Route("/admin/delete/hebergement/{id}", name= "hebergement_delete")
      */
 
     public function deleteHebergement(Hebergement $hebergement): Response
