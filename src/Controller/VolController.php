@@ -38,8 +38,10 @@ class VolController extends AbstractController
             $this->entityManager->flush();
         }
 
+
         return $this->render('vol/vol.html.twig', [
             'form' => $form->createView(),
+
         ]);
     }
 
@@ -48,10 +50,13 @@ class VolController extends AbstractController
      */
     public function volDetail($id): Response
     {
-
-        $singleVol = $this->entityManager->getRepository(Vol::class)->findBy(['id' => $id]);
+        $vol = $this->entityManager->getRepository(Vol::class)->find($id);
+        // $singleVol = $this->entityManager->getRepository(Vol::class)->findBy(['id' => $id]);
         return $this->render('vol/singlevol.html.twig', [
-            'singleVol' => $singleVol,
+            // 'singleVol' => $singleVol,
+            'vol' => $vol,
+
+
         ]);
     }
 }
