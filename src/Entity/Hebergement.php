@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\HebergementRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Reservation;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\HebergementRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass=HebergementRepository::class)
