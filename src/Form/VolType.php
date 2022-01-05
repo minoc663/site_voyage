@@ -35,6 +35,9 @@ class VolType extends AbstractType
 
                 ],
 
+                'years' => range(date('Y'), date('Y') + 10),
+
+
             ])
 
             ->add('date_arrivee', DateTimeType::class, [
@@ -58,9 +61,7 @@ class VolType extends AbstractType
                 ]
             ])
 
-            ->add('prix', MoneyType::class, [
-                'divisor' => 100,
-            ])
+            ->add('prix', MoneyType::class)
 
             ->add('duree_vol', TimeType::class, [
                 'placeholder' => 'Select a value'
