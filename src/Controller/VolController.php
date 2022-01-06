@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Vol;
 use App\Form\VolType;
+use Container8AfTQ9H\getVolService;
+use App\Service\Panier\PanierService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,8 +39,27 @@ class VolController extends AbstractController
             $this->entityManager->flush();
         }
 
+
         return $this->render('vol/vol.html.twig', [
             'form' => $form->createView(),
+
         ]);
     }
+
+    /**
+     * @Route("/vol/{id}", name="vol_detail")
+     */
+    public function volDetail($id): Response
+    {
+        $vol = $this->entityManager->getRepository(Vol::class)->find($id);
+        // $singleVol = $this->entityManager->getRepository(Vol::class)->findBy(['id' => $id]);
+        return $this->render('vol/singlevol.html.twig', [
+            // 'singleVol' => $singleVol,
+            'vol' => $vol,
+
+
+        ]);
+    }
+
+
 }

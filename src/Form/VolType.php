@@ -3,9 +3,11 @@
 namespace App\Form;
 
 use App\Entity\Vol;
+
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -35,6 +37,9 @@ class VolType extends AbstractType
 
                 ],
 
+                'years' => range(date('Y'), date('Y') + 10),
+
+
             ])
 
             ->add('date_arrivee', DateTimeType::class, [
@@ -58,9 +63,7 @@ class VolType extends AbstractType
                 ]
             ])
 
-            ->add('prix', MoneyType::class, [
-                'divisor' => 100,
-            ])
+            ->add('prix', MoneyType::class)
 
             ->add('duree_vol', TimeType::class, [
                 'placeholder' => 'Select a value'

@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -35,16 +36,46 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @Assert\Regex(
+     * pattern = "/^(?=.*\d)(?=.*[A-Z])(?=.*[@#$%])(?!.*(.)\1{2}).*[a-z]/m",
+     * match=true,
+     * message="Votre mot de passe doit comporter au moins huit caractères, dont des lettres majuscules et minuscules, un chiffre et un symbole.")
      */
     private $password;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Regex(
+     *      pattern="/\d/",
+     *      match=false,
+     *      message = "La nom ne doit pas contenir de chiffre"
+     * )
+     * @Assert\Length(
+     *  min = 3,
+     *  max = 50,
+     *  minMessage = "Le nom doit faire 5 caractères minimum",
+     *  maxMessage = "Le nom doit faire 50 caractères maximum" 
+     * )
+     * @Assert\NotBlank(
+     *      message = "Le champs nom est obligatoire "
+     * )
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le prenom est obligatoire !")
+     * @Assert\Regex(
+     *      pattern="/\d/",
+     *      match=false,
+     *      message = "La nom ne doit pas contenir de chiffre"
+     * )
+     * @Assert\Length(
+     *  min = 3,
+     *  max = 50,
+     *  minMessage = "Le nom doit faire 5 caractères minimum",
+     *  maxMessage = "Le nom doit faire 50 caractères maximum" 
+     * )
      */
     private $prenom;
 

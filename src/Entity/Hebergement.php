@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\HebergementRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Reservation;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\HebergementRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass=HebergementRepository::class)
@@ -68,6 +69,16 @@ class Hebergement
      * @ORM\Column(type="float", nullable=true)
      */
     private $prix;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $Illustration2;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $Illustration3;
 
     public function __construct()
     {
@@ -217,6 +228,30 @@ class Hebergement
     public function setPrix(?float $prix): self
     {
         $this->prix = $prix;
+
+        return $this;
+    }
+
+    public function getIllustration2(): ?string
+    {
+        return $this->Illustration2;
+    }
+
+    public function setIllustration2(?string $Illustration2): self
+    {
+        $this->Illustration2 = $Illustration2;
+
+        return $this;
+    }
+
+    public function getIllustration3(): ?string
+    {
+        return $this->Illustration3;
+    }
+
+    public function setIllustration3(?string $Illustration3): self
+    {
+        $this->Illustration3 = $Illustration3;
 
         return $this;
     }

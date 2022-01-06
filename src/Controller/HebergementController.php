@@ -8,7 +8,11 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+
+
 
 class HebergementController extends AbstractController
 {
@@ -20,22 +24,13 @@ class HebergementController extends AbstractController
     /**
      * @Route("/hebergement/view", name="hebergement_view")
      */
-    public function viewHebergements(Request $request): Response
+    public function hebergementView(Request $request, SluggerInterface $slugger): Response
     {
         $hebergement = new Hebergement();
         $form = $this->createForm(HebergementType::class, $hebergement);
         $form->handlerequest($request);
-
-        if($form->isSubmitted() && $form->isValid()){
-            $hebergement = $form->getData();
-            $this->entityManager->persist($hebergement);
-            $this->entityManager->flush();
-
-        }
-
         $hebergements = $this->entityManager->getRepository(Hebergement::class)->findAll();
-
-        return $this->render('hebergement/hebergement.html.twig', [
+        return $this->render('hebergement/hebergementView.html.twig', [
             'form' => $form->createView(),
             'hebergement' => $hebergement,
             'hebergements' => $hebergements,

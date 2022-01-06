@@ -5,8 +5,10 @@ namespace App\Form;
 use App\Entity\Hebergement;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
@@ -39,7 +41,39 @@ class HebergementType extends AbstractType
                 'label' => 'description',
                 'attr' => ['placeholder' => 'Spécifié une description pour l\'hebergement']
             ])
-            ->add('illustration', TextType::class)
+            ->add('illustration', FileType::class, [
+                'label' => 'Illustration',
+                'required' => true,
+                'attr' => ['placeholder' => 'Entrez une illustration'],
+                'constraints' => [
+                    new Image([
+                        'mimeTypes' => ['image/jpeg', 'image/png', 'image/jpg'],
+                        'mimeTypesMessage' => 'Les types de fichier autorisés sont : .jpeg / .png / .jpg'
+                    ])
+                ]
+            ])
+            ->add('illustration2', FileType::class, [
+                'label' => 'Illustration2',
+                'required' => true,
+                'attr' => ['placeholder' => 'Entrez une illustration2'],
+                'constraints' => [
+                    new Image([
+                        'mimeTypes' => ['image/jpeg', 'image/png', 'image/jpg'],
+                        'mimeTypesMessage' => 'Les types de fichier autorisés sont : .jpeg / .png / .jpg'
+                    ])
+                ]
+            ])
+            ->add('illustration3', FileType::class, [
+                'label' => 'Illustration3',
+                'required' => true,
+                'attr' => ['placeholder' => 'Entrez une illustration3'],
+                'constraints' => [
+                    new Image([
+                        'mimeTypes' => ['image/jpeg', 'image/png', 'image/jpg'],
+                        'mimeTypesMessage' => 'Les types de fichier autorisés sont : .jpeg / .png / .jpg'
+                    ])
+                ]
+            ])
             ->add('nombre_nuit', IntegerType::class, [
                 'label' => 'nombre_nuit',
                 'attr' => ['placeholder' => 'Entrez un nombre de nuit']
@@ -62,6 +96,8 @@ class HebergementType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Hebergement::class,
+            'allow_file_upload' => true,
+            // 'illustration' => null,
         ]);
     }
 }
