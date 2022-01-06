@@ -52,6 +52,28 @@ class HebergementType extends AbstractType
                     ])
                 ]
             ])
+            ->add('illustration2', FileType::class, [
+                'label' => 'Illustration2',
+                'required' => true,
+                'attr' => ['placeholder' => 'Entrez une illustration2'],
+                'constraints' => [
+                    new Image([
+                        'mimeTypes' => ['image/jpeg', 'image/png', 'image/jpg'],
+                        'mimeTypesMessage' => 'Les types de fichier autorisés sont : .jpeg / .png / .jpg'
+                    ])
+                ]
+            ])
+            ->add('illustration3', FileType::class, [
+                'label' => 'Illustration3',
+                'required' => true,
+                'attr' => ['placeholder' => 'Entrez une illustration3'],
+                'constraints' => [
+                    new Image([
+                        'mimeTypes' => ['image/jpeg', 'image/png', 'image/jpg'],
+                        'mimeTypesMessage' => 'Les types de fichier autorisés sont : .jpeg / .png / .jpg'
+                    ])
+                ]
+            ])
             ->add('nombre_nuit', IntegerType::class, [
                 'label' => 'nombre_nuit',
                 'attr' => ['placeholder' => 'Entrez un nombre de nuit']
