@@ -4,30 +4,33 @@ namespace App\Controller;
 
 use App\Entity\Vol;
 use App\Entity\User;
+use App\Entity\Voyageur;
 use App\Entity\Hebergement;
-use App\Form\HebergementType;
 
+use App\Form\HebergementType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+
+
 class DashboardController extends AbstractController
 {
     public function __construct(EntityManagerInterface $entityManager)
     {
-        $this->entitymanager = $entityManager;
+        $this->entityManager = $entityManager;
     }
     /**
      * @Route("/admin/dashboard", name="dashboard")
      */
     public function dashboard(): Response
     {
-        $hebergements = $this->entityManager->getRepository(Hebergement::class)->findall();
-        $users = $this->entityManager->getRepository(User::class)->findall();
-        $voyageurs = $this->entityManager->getRepository(Voyageur::class)->findall();
-        $vols = $this->entityManager->getRepository(Vol::class)->findall();
+        $hebergements = $this->entityManager->getRepository(Hebergement::class)->findAll();
+        $users = $this->entityManager->getRepository(User::class)->findAll();
+        $voyageurs = $this->entityManager->getRepository(Voyageur::class)->findAll();
+        $vols = $this->entityManager->getRepository(Vol::class)->findAll();
         return $this->render('dashboard/dashboard.html.twig', [
             'hebergements' => $hebergements,
             'users' => $users,

@@ -160,10 +160,32 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setRoles(array $roles): self
     {
+        
         $this->roles = $roles;
 
         return $this;
     }
+
+    public function getRole(): ?string
+    
+    {
+        $userRoles = $this->getRoles();
+        $acces = implode(',', $userRoles);
+        $admin = "Admin";
+        $user = "User";
+        switch ($acces){
+            case "ROLE_ADMIN,ROLE_USER":
+                return $admin;
+                break;
+                case "ROLE_USER";
+                    return $user;
+                    break;
+        }
+        return"";
+
+
+    }
+
 
     /**
      * @see PasswordAuthenticatedUserInterface
