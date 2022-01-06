@@ -26,20 +26,40 @@
             </div>
         </div>
 
-        <div class="col-md-4">
+        <div class="row">
+        <div class="col-md-8">
+            <div>
+                <div class="card-content">
+                    <div class="card-body">
+                        <img width="700px" src="{{asset('uploads/picture/' ~ hebergement.illustration2) }}" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+        <div class="col-md-8">
+            <div>
+                <div class="card-content">
+                    <div class="card-body">
+                        <img width="700px" src="{{asset('uploads/picture/' ~ hebergement.illustration3) }}" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+                <div class="col-md-4">
             <h1 class="text-center">{{hebergement.nom}}</h1>
 
             <br>
             <p>{{hebergement.description}}</p>
             <br>
-            <p>Ville: {{hebergement.adresse}}</p>
-            <br>
-            {# <p>Capacité d'accueil: {{hebergement.nombre_place}} personnes</p>  #}
-            <br>
+            <p>Ville: {{hebergement.adresse}}</p> 
+            <p>Capacité d'accueil: {{hebergement.nombrePlace}} personnes</p>
+            <p>Temps moyen choisi: {{hebergement.nombreNuit}} nuits</p>  
             <p>Prix: {{hebergement.prix}}</p>
-            <br>
             <div class="col-12">
-                <button type="submit" class="btn btn-primary">Réserver</button>
+                <button type="submit" class="btn btn-primary" href="#">Réserver</button>
             </div>
 
         </div>
