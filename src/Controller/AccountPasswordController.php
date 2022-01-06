@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Form\RegisterType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,7 +24,7 @@ class AccountPasswordController extends AbstractController
     public function passwordReset(Request $request): Response
         {
             $user = $this->getUser();
-            $form = $this->createForm(ResetPasswordType::class,$user);
+            $form = $this->createForm(RegisterType::class,$user);
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()){
@@ -36,7 +37,7 @@ class AccountPasswordController extends AbstractController
             }
 
         return $this->render('account_password/account_password.html.twig', [
-            'controller_name' => 'AccountPasswordController',
+            'form' => $form->createView(),
         ]);
     }
 }

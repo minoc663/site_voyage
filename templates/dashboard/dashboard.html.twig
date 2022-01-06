@@ -4,9 +4,11 @@
 
 {% block body %}
 
-{% block main} 
+<h1 class="text-muted align"><p class="text-center">Mon tableau de board</h1></p>
+<hr>
 
-
-{% endblock %}
+{% for user in users %}
+{{user.prenom}}
+{% endfor %}
 
 {% endblock %}
