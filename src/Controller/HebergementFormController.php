@@ -24,6 +24,7 @@ class HebergementFormController extends AbstractController
     public function viewHebergements(Request $request, SluggerInterface $slugger): Response
     {
         $hebergement = new Hebergement();
+        $hebergements = $this->entityManager->getRepository(Hebergement::class)->findAll();
         $form = $this->createForm(HebergementType::class, $hebergement);
         $form->handlerequest($request);
 
@@ -108,16 +109,18 @@ class HebergementFormController extends AbstractController
             
             $this->entityManager->persist($hebergement);
             $this->entityManager->flush();
+            $this->addFlash('success', "Hébergement ajouter");
+            return $this->redirectToRoute('hebergement_view');
 
         }
 
-        $hebergements = $this->entityManager->getRepository(Hebergement::class)->findAll();
 
         return $this->render('hebergement_form/hebergementForm.html.twig', [
             'form' => $form->createView(),
             'hebergement' => $hebergement,
             'hebergements' => $hebergements,
         ]);
+        
     }
     
 }
