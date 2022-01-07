@@ -7,6 +7,7 @@ namespace App\Controller;
 use App\Cart;
 use App\Entity\Vol;
 
+use App\Entity\Hebergement;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -30,7 +31,7 @@ class CartController extends AbstractController
 
         foreach ($cart->get() as $id => $quantity){
             $cartComplete[] = [
-                'vol' => $this->entityManager->getRepository(Vol::class)->findOneBy($id),
+                'vol' => $this->entityManager->getRepository(Vol::class)->find($id),
                 'quantity' => $quantity
             ];
         }
