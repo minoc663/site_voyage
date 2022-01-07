@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ma reservation{% endblock %}
+
+{% block body %}
+<h1>Ma reservation</h1>
+<p>Retrouver l'ensemble de votre reservation</p>
+
+<h2>MON PANIER </h2>
+    
+        <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">VOl</th>
+      <th scope="col">Date de départ</th>
+      <th scope="col">Quantité</th>
+      <th scope="col">Prix</th>
+      <th scope="col">Handle</th>
+    </tr>
+  </thead>
+  <tbody>
+
+  {% for vol in cart %}
+    <tr>
+      <th scope="row" class="card-title" class="card-title">{{ vol.vol.compagnie }}</th>
+      <td>{{ vol.vol.dateDepart | date("d/m/Y") }}</td>
+      <td>{{ vol.quantity }}</td>
+      <td>{{ vol.vol.prix }}</td>
+    </tr>
+{% endfor %}
+
+  </tbody>
+</table>
+
+{% endblock %}
