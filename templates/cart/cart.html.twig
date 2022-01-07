@@ -23,11 +23,12 @@
   {% for vol in cart %}
     <tr>
       <th scope="row" class="card-title" class="card-title">{{ vol.vol.compagnie }}</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
+      <td>{{ vol.vol.dateDepart | date("d/m/Y") }}</td>
+      <td>{{ vol.quantity }}</td>
+      <td>{{ vol.vol.prix }}</td>
     </tr>
 {% endfor %}
+
   </tbody>
 </table>
 
