@@ -308,10 +308,11 @@ blockquote {
     padding-right: 360px;
 }
 
-.palne-img-area {
+.plane-img-area {
     position: absolute;
-    top: -30px;
-    right: -78px;
+    top: 500px;
+    right: 400px;
+
 }
 
 .about a {
