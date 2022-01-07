@@ -63,7 +63,7 @@ class VolType extends AbstractType
                 ]
             ])
 
-            ->add('prix', MoneyType::class)
+            ->add('prix', IntegerType::class)
 
             ->add('duree_vol', TimeType::class, [
                 'placeholder' => 'Select a value'

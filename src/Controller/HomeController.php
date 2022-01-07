@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
-use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\Vol;
 
+use App\Entity\Hebergement;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,8 +22,16 @@ class HomeController extends AbstractController
      */
     public function home(): Response
     {
+        $hebergements = $this->entityManager->getRepository(Hebergement::class)->findAll();
+        
+       
+        $vols = $this->entityManager->getRepository(Vol::class)->findAll();
         return $this->render('home/home.html.twig', [
             'controller_name' => 'HomeController',
+            'hebergements' => $hebergements,
+            
+            
+            'vols' => $vols
         ]);
     }
 
