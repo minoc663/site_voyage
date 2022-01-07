@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Espace Administrateur!{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <h2 class="text-center">Mes vols</h2>
+    <a href="{{path('add_vol')}}" class="btn mb-2 mb-md-0 btn-outline-secondary btn-block">Ajouter un nouveau vol</a>
+    <table class="table table-hover mt-2">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Compagnie</th>
+                <th scope="col">Date_Depart</th>
+                <th scope="col">Date_Arrivee</th>
+                <th scope="col">Prix</th>
+                <th scope="col">Action</th>
+               
+            </tr>
+        </thead>
+        <tbody>
+            {% for vol in vols %}
+            <tr>
+                <th>{{vol.id}}</th>
+                <td>{{vol.compagnie}}</td>
+                <td>{{vol.dateDepart | date("d/m/Y")}}</td>
+                <td>{{vol.dateArrivee | date("d/m/Y")}}</td>
+                <td>{{vol.prix}}</td>
+                <td>
+                    <a href="{{path('edit_vol',{'id': vol.id})}}"><i style="color: black;" class="fa fa-edit"></i></a> |
+                    <a href="{{path('vol_delete',{'id': vol.id})}}"><i style="color: black;" class="fa fa-trash"></i></a>
+                </td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endblock %}
