@@ -1,7 +1,7 @@
 {# MENU #}
 <nav class="navbar navbar-expand-lg navbar-light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#"><img class="logo" src="https://image.freepik.com/vecteurs-libre/logo-voyage-detaille_23-2148616611.jpg" alt="Grapefruit slice atop a pile of other slices"></a>
+    <a class="navbar-brand" href="{{path('home')}}"><img class="logo" src="https://image.freepik.com/vecteurs-libre/logo-voyage-detaille_23-2148616611.jpg" alt="Grapefruit slice atop a pile of other slices"></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -13,7 +13,7 @@
 
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Vol</a>
+          <a class="nav-link" href="{{path('vol_all')}}">Vols</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Hébergement</a>
@@ -22,7 +22,9 @@
           <a class="nav-link disabled">Disabled</a>
         </li>
 
-        <li class="nav-item primary" role="presentation"><a class="nav-link" href="{{path('panier')}}"><i class="fa fa-shopping-cart "></i></a></li>
+        <li class="nav-item primary" role="presentation"><a class="nav-link" href="#"><i class="fa fa-shopping-cart "></i></a></li>
+
+        <li><a href="{{path('app_login')}}" class="btn btn-primary">Mon compte</a>
       </ul>
     </div>
   </div>

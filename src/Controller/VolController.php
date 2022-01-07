@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Vol;
 use App\Form\VolType;
+use App\Repository\VolRepository;
 use Container8AfTQ9H\getVolService;
 use App\Service\Panier\PanierService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -49,15 +50,25 @@ class VolController extends AbstractController
     /**
      * @Route("/vol/{id}", name="vol_detail")
      */
-    public function volDetail($id): Response
+    public function volDetail(VolRepository $volrepository, $id): Response
     {
-        $vol = $this->entityManager->getRepository(Vol::class)->find($id);
+        $vol = $volrepository->find($id);
+
         // $singleVol = $this->entityManager->getRepository(Vol::class)->findBy(['id' => $id]);
         return $this->render('vol/singlevol.html.twig', [
             // 'singleVol' => $singleVol,
             'vol' => $vol,
 
 
+        ]);
+    }
+     /**
+     * @Route("/vols", name="vol_all")
+     */
+    public function AllVol(VolRepository $volRepository)
+    {
+        return $this->render('vol/allvol.html.twig', [
+            'vols' => $volRepository->findAll()
         ]);
     }
 
