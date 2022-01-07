@@ -1,59 +1,68 @@
 <?php
 
 
+
 namespace App\Controller;
 
+use App\Cart;
 use App\Entity\Vol;
-use App\Repository\VolRepository;
-use Symfony\Component\HttpFoundation\Request;
+
+use App\Entity\Hebergement;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class CartController extends AbstractController
 {
-    /**
-     * @Route("/cart", name="cart_")
-     */
 
-    public function index(SessionInterface $session, VolRepository $volRepository)
+    private $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager)
     {
-        $panier = $session->get("panier", []);
-
-        // On "fabrique" les données
-        $dataPanier = [];
-        $total = 0;
-
-        foreach($panier as $id => $quantite){
-            $vol = $volRepository->find($id);
-            $dataPanier[] = [
-                "vol" => $vol,
-                "quantite" => $quantite
-            ];
-            $total += $vol->getPrix() * $quantite;
-        }
-
-        return $this->render('cart/cart.html.twig', compact("dataPanier", "total"));
+        $this->entityManager = $entityManager;
     }
 
     /**
-     * @Route("/add/{id}", name="cart_add")
+     * @Route("/mon-panier", name="cart")
      */
-    public function add(VolRepository $vol, SessionInterface $session)
+    public function index(Cart $cart)
     {
-        // On récupère le panier actuel
-        $panier = $session->get("panier", []);
-        $id = $vol->getId();
+        $cartComplete =[];
 
-        if(!empty($panier[$id])){
-            $panier[$id]++;
-        }else{
-            $panier[$id] = 1;
+        foreach ($cart->get() as $id => $quantity){
+            $cartComplete[] = [
+                'vol' => $this->entityManager->getRepository(Vol::class)->find($id),
+                'quantity' => $quantity
+            ];
         }
 
-        // On sauvegarde dans la session
-        $session->set("panier", $panier);
+        return $this->render('cart/cart.html.twig', [
+            'cart' => $cartComplete
+        ]);
+    
+    }
 
-        return $this->redirectToRoute('cart/cart.html.twig', []);
+    /**
+     * @Route("/cart/add/{id}", name="add_to_cart")
+     */
+    public function add(Cart $cart, $id)
+    {
+        $cart->add($id);
+        
+        return $this->redirectToRoute('cart');
+    
+    }
+
+    //REMOVE
+    /**
+     * @Route("/cart/remove", name="remove_my_cart")
+     */
+    public function remove(Cart $cart)
+    {
+        $cart->remove();
+        return $this->redirectToRoute('home');
+    
     }
 }
+
+

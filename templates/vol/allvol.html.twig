@@ -1,24 +1,31 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Les produits
+{% block title %}Les vols
 {% endblock %}
 
 {% block body %}
     <section class="bg-light p-3">
         <h1>Voir tous nos vols</h1>
+        <h1>Voici tous nos vols, trouver votre voyage ideal et reserver sans attendre</h1>
     </section>
 
-    <section class="row">
+    <section class="row d-flex justify-content-center text-center">
         {% for vol in vols %}
-            <div class="col-4 mt-4">
-                <div class="border border-dark rounded p-2 clearfix">
-                    <h2>{{ vol.compagnie }}</h2>
-                    <p>{{ vol.dateDepart | date("d/m/Y") }} €</p>
-                    <a href="{{path("cart_add", {id: vol.id})}}" class="btn btn-primary">
-                        <i class="bi bi-cart-plus"></i> Ajouter
-                    </a> 
-                </div>
-            </div>
+        <div class="card m-1" style="width: 18rem;">
+            
+    <div class="card-body">
+        <h3 class="card-title">{{ vol.lieuDepart }} -> {{ vol.lieuArrivee }}</h3>
+        <h4 lass="card-text">{{ vol.compagnie }}</h4>
+        <p class="card-text"><strong>Date de départ : </strong>{{ vol.dateDepart | date("d/m/Y") }}</p>
+        <p class="card-text"><strong>Heurede départ : </strong>{{ vol.dateDepart | date("H\\hi") }}</p>
+        <p class="card-text"><strong>Heure d'arrivée : </strong>{{ vol.dateArrivee | date("H\\hi") }}</p>
+        <a href="{{ path('vol_detail', {id: vol.id} ) }}" class="btn btn-info">Detail</a>
+        <a href="{{path('add_to_cart', {id: vol.id} ) }}" class="btn btn-primary">Reservez</a>
+    </div>
+    </div>
+
+
+
         {% endfor %}
     </section>
 {% endblock %}
