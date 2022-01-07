@@ -7,37 +7,7 @@
 
 <div class="bg-gradient-primary mt-4 w-100p-3 mb-10 bg-secondary text-white"><p class="text-center">Mon tableau de bord</p></div>
 
-<div class="container">
-    <h2 class="text-center">Mes membres</h2>
-    <a href="#" class="btn mb-2 mb-md-0 btn-outline-secondary btn-block">Ajouter un membre</a>
-    <table class="table table-hover mt-2">
-        <thead class="table-dark">
-            <tr>
-                <th scope="col">Id</th>
-                <th scope="col">Prénom</th>
-                <th scope="col">Nom</th>
-                <th scope="col">Email</th>
-                <th scope="col">Rôle</th>
-                <th scope="col">Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for user in users %}
-            <tr>
-                <th>{{user.id}}</th>
-                <td>{{user.prenom}}</td>
-                <td>{{user.nom}}</td>
-                <td>{{user.email}}</td>
-                <td>{{user.role}}</td>
-                <td>
-                    <a href="#"></i></a>
-                    <a href="#""></i></a>
-                </td>
 
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
 
 <head>
   <meta charset="utf-8" />
@@ -58,7 +28,7 @@
     <div class="sidenav-header">
       
       <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/material-dashboard/pages/dashboard " target="_blank">
-        <img src="../assets/img/logo-ct.png" class="navbar-brand-img h-100" alt="main_logo">
+        <img src="../assets/img/traveling.jpg" class="navbar-brand-img h-50" alt="main_logo">
         <span class="ms-1 font-weight-bold text-white">
         {% for user in users %}
 {{user.prenom}}
@@ -72,6 +42,7 @@
           <a class="nav-link text-white " href="../pages/dashboard.html">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
          <i class="fas fa-plane"></i>
+         <a class="btn bg-gradient-primary mt-3 w-100" href="{{path ('home')}}"
             </div>
             <span class="nav-link-text ms-1">Les Vols</span>
           </a>
@@ -80,6 +51,7 @@
           <a class="nav-link text-white " href="../pages/tables.html">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="fas fa-hotel"></i>
+              <a class="btn bg-gradient-primary mt-3 w-100" href="{{path ('home')}}"
             </div>
             <span class="nav-link-text ms-1">Les hebergements</span>
           </a>
@@ -88,6 +60,7 @@
           <a class="nav-link text-white " href="../pages/tables.html">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
              <i class="fas fa-user"></i>
+             <a class="btn bg-gradient-primary mt-3 w-100" href="{{path('dashboard_all_users')}}"
             </div>
             <span class="nav-link-text ms-1">Les Utilisateurs</span>
           </a>
@@ -97,7 +70,7 @@
     </div>
     <div class="sidenav-footer position-absolute w-100 bottom-0 ">
       <div class="mx-3">
-        <a class="btn bg-gradient-primary mt-4 w-100" href="{{path ('home')}}" type="button">TRAVELING</a>
+        <a class="text-white btn bg-warning mt-4 w-100" href="{{path ('home')}}" type="button">TRAVELING</a>
       </div>
     </div>
   </aside>
