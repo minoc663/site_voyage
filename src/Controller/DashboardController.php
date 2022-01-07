@@ -4,12 +4,15 @@ namespace App\Controller;
 
 use App\Entity\Vol;
 use App\Entity\User;
+use App\Form\VolType;
 use App\Entity\Voyageur;
-use App\Form\RegisterType;
 
+use App\Form\EditVolType;
+use App\Form\RegisterType;
 use App\Entity\Hebergement;
 use App\Form\HebergementType;
 use App\Form\EditRegisterType;
+use App\Form\EditHebergementType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -108,6 +111,28 @@ class DashboardController extends AbstractController
     }
 
     /**
+     * @Route("admin/add/hebergement", name="add_hebergement")
+     */
+    public function addHebergement(Request $request): Response
+    {
+
+        $hebergement = new Hebergement();
+        $form = $this->createForm(HebergementType::class, $hebergement);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $hebergement = $form->getData();
+            $this->entityManager->persist($hebergement);
+            $this->entityManager->flush();
+            return $this->redirect($request->get('redirect') ?? '/admin/dashboard');
+        }
+
+        return $this->render('dashboard/addhebergement.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+    /**
      * @Route("/admin/edit/hebergement/{id}", name="edit_hebergement")
      */
 
@@ -127,6 +152,44 @@ class DashboardController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
+     /**
+     *@Route("/admin/delete/hebergement/{id}", name= "hebergement_delete")
+     */
+
+    public function deleteHebergement(Hebergement $hebergement): Response
+
+    {
+        $this->entityManager->remove($hebergement);
+        $this->entityManager->flush();
+        $this->addFlash('sucess', 'L\'hebergement a été supprimé avec succès');
+        return $this->redirectToRoute('dashboard');
+    }
+
+
+    /**
+     * @Route("admin/add/vol", name="add_vol")
+     */
+    public function addVol(Request $request): Response
+    {
+
+        $vol = new Vol();
+        $form = $this->createForm(VolType::class, $vol);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $vol = $form->getData();
+            $this->entityManager->persist($vol);
+            $this->entityManager->flush();
+            return $this->redirect($request->get('redirect') ?? '/admin/dashboard');
+        }
+
+        return $this->render('dashboard/addvol.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+    
     /**
      * @Route("/admin/edit/vol/{id}", name="edit_vol")
      */
@@ -160,20 +223,6 @@ class DashboardController extends AbstractController
         return $this->redirectToRoute('dashboard');
     }
 
-
-    /**
-     *@Route("/admin/delete/hebergement/{id}", name= "hebergement_delete")
-     */
-
-    public function deleteHebergement(Hebergement $hebergement): Response
-
-    {
-        $this->entityManager->remove($hebergement);
-        $this->entityManager->flush();
-        $this->addFlash('sucess', 'L\'hebergement a été supprimé avec succès');
-        return $this->redirectToRoute('dashboard');
-    }
-
         /**
      * @Route("/admin/dashboard/allUsers", name="dashboard_all_users")
      */
@@ -187,4 +236,29 @@ class DashboardController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/admin/dashboard/allVols", name="dashboard_all_vols")
+     */
+    public function viewAllVols(): Response
+    {
+       
+        $vols = $this->entityManager->getRepository(Vol::class)->findAll();
+  
+        return $this->render('dashboard/viewEditVol.html.twig', [
+            'vols' => $vols,
+        ]);
+    }
+
+    /**
+     * @Route("/admin/dashboard/allHebergements", name="dashboard_all_hebergements")
+     */
+    public function viewAllHebergements(): Response
+    {
+       
+        $hebergements = $this->entityManager->getRepository(Hebergement::class)->findAll();
+  
+        return $this->render('dashboard/viewEditHebergement.html.twig', [
+            'hebergements' => $hebergements,
+        ]);
+    }
 }

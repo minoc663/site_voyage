@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Espace Administrateur!{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <h2 class="text-center">Mes hebergements</h2>
+    <a href="{{path('add_hebergement')}}" class="btn mb-2 mb-md-0 btn-outline-secondary btn-block">Ajouter un hebergement</a>
+    <table class="table table-hover mt-2">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Adresse</th>
+                <th scope="col">Description</th>
+                <th scope="col">Illustration</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for hebergement in hebergements %}
+            <tr>
+                <th>{{hebergement.id}}</th>
+                <td>{{hebergement.nom}}</td>
+                <td>{{hebergement.adresse}}</td>
+                <td>{{hebergement.description}}</td>
+                <td>{{hebergement.illustration}}</td>
+                
+                <td>
+                    <a href="{{path('edit_hebergement',{'id': hebergement.id})}}"><i style="color: black;" class="fa fa-edit"></i></a> |
+                    <a href="{{path('hebergement_delete',{'id': hebergement.id})}}"><i style="color: black;" class="fa fa-trash"></i></a>
+                </td>
+                <td><img style="width:100px;" src="{{asset('uploads/picture/' ~ hebergement.illustration) }}
+" alt=""></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endblock %}
