@@ -20,7 +20,7 @@
         <p class="card-text"><strong>Heurede départ : </strong>{{ vol.dateDepart | date("H\\hi") }}</p>
         <p class="card-text"><strong>Heure d'arrivée : </strong>{{ vol.dateArrivee | date("H\\hi") }}</p>
         <a href="{{ path('vol_detail', {id: vol.id} ) }}" class="btn btn-info">Detail</a>
-        <a href="#" class="btn btn-primary">Reservez</a>
+        <a href="{{path('add_to_cart', {id: vol.id} ) }}" class="btn btn-primary">Reservez</a>
     </div>
     </div>
 
